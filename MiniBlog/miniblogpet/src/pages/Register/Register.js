@@ -6,14 +6,29 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [erro, setErro] = useState('')
+  const [error, setError] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
+
+    setError('')
+
+    const user ={
+      displayName,
+      email,
+      password
+    }
+
+    if(password !== confirmPassword) {
+      setError("As senhas precisam ser iguais!")
+      return
+    }
+      console.log(user)
+
   }
 
   return (
-    <div>
+    <div className={styles.register}>
       <h1>Cadastre-se para postar!</h1>
       <p>Crie seu usuário e compartilhe as histórias do seu pet</p>
       <form onSubmit={handleSubmit}>
@@ -62,6 +77,7 @@ const Register = () => {
           />
         </label>
         <button className="btn">Cadastrar</button>
+        {error && <p className='error'>{error}</p>}
       </form>
     </div>
   )
