@@ -8,6 +8,7 @@ body {
 input::placeholder,
 textarea::placeholder {
   font-family: 'Montserrat', sans-serif;
+  color: #aaa;
 }
 
 input:focus,
@@ -27,7 +28,52 @@ nav button {
   font-family: 'Montserrat', sans-serif;
 }
 
-a:hover, nav button:hover {
+a:hover,
+nav button:hover {
   color: #bbb;
 }
 
+/*form styles*/
+form {
+  max-width: 40%;
+  margin: 0 auto;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1px;
+}
+
+label span {
+  margin-bottom: 0.3em;
+  font-weight: bold;
+  text-align: left;
+}
+
+input,
+textarea {
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 0.8em 0;
+  background-color: transparent;
+}
+
+.btn {
+  background-color: #467725;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 10px;
+  width: 120px;
+  font-weight: bold;
+  border: none;
+  padding: 10px 15px;
+  font-size: 1em;
+}
+
+.btn.btn-dark {
+  background-color: #000;
+  border-radius: 0;
+}
