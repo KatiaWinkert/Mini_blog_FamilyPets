@@ -42,7 +42,7 @@ form {
 label {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1px;
+  margin-bottom: 1em;
 }
 
 label span {
@@ -103,7 +103,7 @@ button[disabled] {
   background-color: #aaa;
 }
 
-.container .erro {
+.container .error {
   color: #721c24;
   background-color: #f8d7da;
   border: 1px solid #f5c6cb;
