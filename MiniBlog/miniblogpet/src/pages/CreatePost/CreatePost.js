@@ -3,6 +3,7 @@ import style from './CreatePost.module.css'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthValue } from '../../context/AuthContext'
+import { useInsertDocument } from '../../hooks/useInsertDocuments'
 
 const CreatePost = () => {
   const [title, setTitle] = useState('') // para dados de titulo
@@ -11,8 +12,35 @@ const CreatePost = () => {
   const [body, setBody] = useState('') // conteudo do post
   const [formError, setFormError] = useState('') // erros de formulario
 
+    // dados do usuario:
+  const { user } = useAuthValue()
+
+  //hook: que faz o insert: import da função e a response
+  const { insertDocument, response } = useInsertDocument('posts')
+
+  //submit ==========================================
   const handleSubmit = (e) => {
     e.preventDefault()
+    setFormError('')
+
+    //validar image url
+
+    // criar arrya de tags
+
+    //checar todos os valores
+
+
+    //criar a estrutura, propriedades do documento e faz o insert
+    insertDocument({
+      title,
+      image,
+      body,
+      tags,
+      uid: user.uid,
+      createdBy: user.displayName,
+    })
+
+    // redirect to home page
   }
 
   return (
@@ -27,7 +55,7 @@ const CreatePost = () => {
           <span>Título:</span>
           <input
             type="text"
-            name="title"
+            name="text"
             required
             placeholder="Pense em um bom titulo..."
             onChange={(e) => setTitle(e.target.value)}
@@ -66,8 +94,13 @@ const CreatePost = () => {
             value={tags}
           />
         </label>
-        <button className="btn">Cadastrar</button>
-        
+        {!response.loading && <button className="btn">Criar Post!</button>}
+        {response.loading && (
+          <button className="btn" disabled>
+            Aguarde.. .
+          </button>
+        )}
+        {response.error && <p className="error">{response.error}</p>}{' '}
       </form>
     </div>
   )
