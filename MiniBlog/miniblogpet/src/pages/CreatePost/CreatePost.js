@@ -6,6 +6,8 @@ import { useAuthValue } from '../../context/AuthContext'
 import { useInsertDocument } from '../../hooks/useInsertDocuments'
 
 const CreatePost = () => {
+
+  //Estrutura do post:
   const [title, setTitle] = useState('') // para dados de titulo
   const [image, setImage] = useState('') // para os dados de imagem do post
   const [tags, setTags] = useState([]) // para dados de tag ([] = array pois guarda uma lista de tags)
@@ -30,7 +32,7 @@ const CreatePost = () => {
     //checar todos os valores
 
 
-    //criar a estrutura, propriedades do documento e faz o insert
+    //criar a estrutura, propriedades do documento e faz o insert.
     insertDocument({
       title,
       image,
@@ -40,7 +42,8 @@ const CreatePost = () => {
       createdBy: user.displayName,
     })
 
-    // redirect to home page
+    // redirect to home page 
+    //se der tudo certo vai para home :)
   }
 
   return (
@@ -94,12 +97,16 @@ const CreatePost = () => {
             value={tags}
           />
         </label>
+
+        {/* Efeito enquanto aguarda a resposta do cadastro  */}
         {!response.loading && <button className="btn">Criar Post!</button>}
         {response.loading && (
           <button className="btn" disabled>
             Aguarde.. .
           </button>
         )}
+
+        {/*valida o erro tanto na response quanto no form */}
         {response.error && <p className="error">{response.error}</p>}{' '}
       </form>
     </div>
