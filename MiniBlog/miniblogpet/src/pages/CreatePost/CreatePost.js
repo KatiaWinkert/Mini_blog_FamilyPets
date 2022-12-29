@@ -6,7 +6,6 @@ import { useAuthValue } from '../../context/AuthContext'
 import { useInsertDocument } from '../../hooks/useInsertDocuments'
 
 const CreatePost = () => {
-
   //Estrutura do post:
   const [title, setTitle] = useState('') // para dados de titulo
   const [image, setImage] = useState('') // para os dados de imagem do post
@@ -14,7 +13,7 @@ const CreatePost = () => {
   const [body, setBody] = useState('') // conteudo do post
   const [formError, setFormError] = useState('') // erros de formulario
 
-    // dados do usuario:
+  // dados do usuario:
   const { user } = useAuthValue()
 
   //hook: que faz o insert: import da função e a response
@@ -26,11 +25,17 @@ const CreatePost = () => {
     setFormError('')
 
     //validar image url
+    try {
+      new URL(image)
+    } catch (error) {
+      setFormError('A imagem precisa ser uma url')
+    }
 
     // criar arrya de tags
 
     //checar todos os valores
 
+    if (formError) return
 
     //criar a estrutura, propriedades do documento e faz o insert.
     insertDocument({
@@ -42,7 +47,7 @@ const CreatePost = () => {
       createdBy: user.displayName,
     })
 
-    // redirect to home page 
+    // redirect to home page
     //se der tudo certo vai para home :)
   }
 
@@ -97,7 +102,6 @@ const CreatePost = () => {
             value={tags}
           />
         </label>
-
         {/* Efeito enquanto aguarda a resposta do cadastro  */}
         {!response.loading && <button className="btn">Criar Post!</button>}
         {response.loading && (
@@ -105,9 +109,9 @@ const CreatePost = () => {
             Aguarde.. .
           </button>
         )}
-
         {/*valida o erro tanto na response quanto no form */}
-        {response.error && <p className="error">{response.error}</p>}{' '}
+        {response.error && <p className="error">{response.error}</p>}
+        {formError && <p className="error">{formError}</p>}
       </form>
     </div>
   )
