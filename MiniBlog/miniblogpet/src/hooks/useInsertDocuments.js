@@ -76,8 +76,8 @@ export const useInsertDocument = (docCollection) => {
   }
 
   //Encerra o componente:
-  // useEffect(() => {
-  // return () => setCancelled(true)
+   //useEffect(() => {
+   //return () => setCancelled(true)
   //}, [])
 
   //esporta a funão do hook e a resposta.
