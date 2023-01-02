@@ -5,7 +5,7 @@ import { useState, useEffect, useReducer } from 'react'
 import { db } from '../firebase/config'
 
 //firebase store
-import { collection, addDoc, Timestamp } from 'firebase/firestore'
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 //inicia sem loading e sem erro
 const initialState = {
@@ -54,7 +54,7 @@ export const useInsertDocument = (docCollection) => {
 
     try {
       //Cria o objeto e adiciona o campo de timestamp.
-      const newDocument = { ...document, createdAt: Timestamp.now() }
+      const newDocument = { ...document, createdAt: serverTimestamp() }
 
       //Procura na coleção o documento que recebeu como argumento função
       const insertDocument = await addDoc(
@@ -76,9 +76,9 @@ export const useInsertDocument = (docCollection) => {
   }
 
   //Encerra o componente:
-  // useEffect(() => {
-  //return () => setCancelled(true)
-  //}, [])
+   useEffect(() => {
+  return () => setCancelled(true)
+  }, [])
 
   //esporta a funão do hook e a resposta.
   return { insertDocument, response }
