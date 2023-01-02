@@ -5,10 +5,10 @@ import { useState, useEffect, useReducer } from 'react'
 import { db } from '../firebase/config'
 
 //firebase store
-import { collection, addDoc, Timestamp } from 'firebase/firestore'
+import { collection, addDoc,  serverTimestamp } from 'firebase/firestore'
 
 //inicia sem loading e sem erro
-const inicialState = {
+const initialState = {
   loading: null,
   error: null,
 }
@@ -30,14 +30,14 @@ const insertReducer = (state, action) => {
 // INSERT DOC  recebe uma coleção --------------------
 export const useInsertDocument = (docCollection) => {
   //reducer
-  const [response, dispatch] = useReducer(insertReducer, inicialState)
+  const [response, dispatch] = useReducer(insertReducer, initialState)
 
   //deal with memory leak (para não ter vazamento de memoria)
   
   const [cancelled, setCancelled] = useState(false)
   // antes de fazer alguma ação valida se esta cancelada.
 
-  const checkCancelBeforDispatch = (action) => {
+  const checkCancelBeforeDispatch = (action) => {
     if (!cancelled) {
       //se precisar continuar com hook ou nao.
       dispatch(action)
@@ -48,13 +48,13 @@ export const useInsertDocument = (docCollection) => {
   //Inserir o documento.
   const insertDocument = async (document) => {
     // Carregando o insert
-    checkCancelBeforDispatch({
+    checkCancelBeforeDispatch({
       type: 'LOADING',
     })
 
     try {
       //Cria o objeto e adiciona o campo de timestamp.
-      const newDocument = { ...document, createdAt: Timestamp.now() }
+      const newDocument = { ...document, createdAt: serverTimestamp.now()}
 
       //Procura na coleção o documento que recebeu como argumento função
       const insertDocument = await addDoc(
@@ -62,13 +62,13 @@ export const useInsertDocument = (docCollection) => {
         newDocument
       )
       //Monta o metodo:
-      checkCancelBeforDispatch({
+      checkCancelBeforeDispatch({
         type: 'INSERTED_DOC',
         payload: insertDocument,
       })
     } catch (error) {
       //Dispara o erro caso aconteça:
-      checkCancelBeforDispatch({
+      checkCancelBeforeDispatch({
         type: 'ERROR',
         payload: error.message,
       })
@@ -76,9 +76,9 @@ export const useInsertDocument = (docCollection) => {
   }
 
   //Encerra o componente:
-   //useEffect(() => {
-   //return () => setCancelled(true)
-  //}, [])
+   useEffect(() => {
+   return () => setCancelled(true)
+  }, [])
 
   //esporta a funão do hook e a resposta.
   return { insertDocument, response }
