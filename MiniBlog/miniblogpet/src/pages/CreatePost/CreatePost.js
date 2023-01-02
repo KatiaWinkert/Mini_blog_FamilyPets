@@ -28,7 +28,7 @@ const CreatePost = () => {
     try {
       new URL(image)
     } catch (error) {
-      setFormError('A imagem precisa ser uma url')
+      setFormError('A imagem precisa ser uma URL.')
     }
 
     // criar arrya de tags
