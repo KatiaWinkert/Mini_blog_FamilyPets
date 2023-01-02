@@ -1,4 +1,4 @@
-import style from './CreatePost.module.css'
+import styles from './CreatePost.module.css'
 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -15,6 +15,8 @@ const CreatePost = () => {
 
   // dados do usuario:
   const { user } = useAuthValue()
+
+  const navigate = useNavigate()
 
   //hook: que faz o insert: import da função e a response
   const { insertDocument, response } = useInsertDocument('posts')
@@ -53,10 +55,11 @@ const CreatePost = () => {
 
     // redirect to home page
     //se der tudo certo vai para home :)
+    navigate('/')
   }
 
   return (
-    <div className={style.create_post}>
+    <div className={styles.create_post}>
       <h2>Criar Post</h2>
       <p>
         Escreva sobre os seus pets e compartilhe curiosidades e coisas
@@ -114,8 +117,9 @@ const CreatePost = () => {
           </button>
         )}
         {/*valida o erro tanto na response quanto no form */}
-        {response.error && <p className="error">{response.error}</p>}
-        {formError && <p className="error">{formError}</p>}
+        {(response.error || formError) && (
+          <p className="error">{response.error || formError}</p>
+        )}
       </form>
     </div>
   )
