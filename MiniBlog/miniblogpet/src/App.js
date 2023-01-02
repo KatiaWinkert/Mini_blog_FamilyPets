@@ -12,12 +12,15 @@ import { AuthProvider } from './context/AuthContext'
 
 //pages
 import Home from './pages/Home/Home'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import Register from './pages/Register/Register'
 import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
 import CreatePost from './pages/CreatePost/CreatePost'
 import Dashboard from './pages/Dashboard/Dashboard'
+
+//components 
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+
 
 function App() {
   const [user, setUser] = useState(undefined)
