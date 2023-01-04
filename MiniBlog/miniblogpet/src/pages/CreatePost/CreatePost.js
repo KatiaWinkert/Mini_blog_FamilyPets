@@ -1,70 +1,72 @@
 import styles from './CreatePost.module.css'
 
 import { useState } from 'react'
+import { useInsertDocument } from '../../hooks/useInsertDocuments'
 import { useNavigate } from 'react-router-dom'
 import { useAuthValue } from '../../context/AuthContext'
-import { useInsertDocument } from '../../hooks/useInsertDocuments'
 
 const CreatePost = () => {
-  //Estrutura do post:
-  const [title, setTitle] = useState('') // para dados de titulo
-  const [image, setImage] = useState('') // para os dados de imagem do post
-  const [tags, setTags] = useState([]) // para dados de tag ([] = array pois guarda uma lista de tags)
-  const [body, setBody] = useState('') // conteudo do post
-  const [formError, setFormError] = useState('') // erros de formulario
+  const [title, setTitle] = useState('')
+  const [image, setImage] = useState('')
+  const [body, setBody] = useState('')
+  const [tags, setTags] = useState([])
+  const [formError, setFormError] = useState('')
 
-  // dados do usuario:
   const { user } = useAuthValue()
 
   const navigate = useNavigate()
 
-  //hook: que faz o insert: import da função e a response
   const { insertDocument, response } = useInsertDocument('posts')
 
-  //submit ==========================================
   const handleSubmit = (e) => {
     e.preventDefault()
     setFormError('')
 
-    //validar image url
+    // validate image
     try {
       new URL(image)
     } catch (error) {
       setFormError('A imagem precisa ser uma URL.')
     }
 
-    // criar arrya de tags
+    // create tags array
     const tagsArray = tags.split(',').map((tag) => tag.trim().toLowerCase())
 
-    //checar todos os valores
+    // check values
     if (!title || !image || !tags || !body) {
       setFormError('Por favor, preencha todos os campos!')
     }
 
+    console.log(tagsArray)
+
+    console.log({
+      title,
+      image,
+      body,
+      tags: tagsArray,
+      uid: user.uid,
+      createdBy: user.displayName,
+    })
+
     if (formError) return
 
-    //criar a estrutura, propriedades do documento e faz o insert.
     insertDocument({
       title,
       image,
       body,
-      tagsArray,
+      tags: tagsArray,
       uid: user.uid,
       createdBy: user.displayName,
     })
 
     // redirect to home page
-    //se der tudo certo vai para home :)
     navigate('/')
   }
 
   return (
     <div className={styles.create_post}>
-      <h2>Criar Post</h2>
-      <p>
-        Escreva sobre os seus pets e compartilhe curiosidades e coisas
-        inusitadas.{' '}
-      </p>
+      <h2>Criar post</h2>
+      <p>Escreva sobre o que quiser e compartilhe o seu conhecimento!</p>
       <form onSubmit={handleSubmit}>
         <label>
           <span>Título:</span>
@@ -72,7 +74,7 @@ const CreatePost = () => {
             type="text"
             name="text"
             required
-            placeholder="Pense em um bom titulo..."
+            placeholder="Pense num bom título..."
             onChange={(e) => setTitle(e.target.value)}
             value={title}
           />
@@ -83,7 +85,7 @@ const CreatePost = () => {
             type="text"
             name="image"
             required
-            placeholder="Insira uma imagem que representa seu post."
+            placeholder="Insira uma imagem que representa seu post"
             onChange={(e) => setImage(e.target.value)}
             value={image}
           />
@@ -104,19 +106,17 @@ const CreatePost = () => {
             type="text"
             name="tags"
             required
-            placeholder="Insira as tags separadas por virgulas "
+            placeholder="Insira as tags separadas por vírgula"
             onChange={(e) => setTags(e.target.value)}
             value={tags}
           />
         </label>
-        {/* Efeito enquanto aguarda a resposta do cadastro  */}
-        {!response.loading && <button className="btn">Criar Post!</button>}
+        {!response.loading && <button className="btn">Criar post!</button>}
         {response.loading && (
           <button className="btn" disabled>
             Aguarde.. .
           </button>
         )}
-        {/*valida o erro tanto na response quanto no form */}
         {(response.error || formError) && (
           <p className="error">{response.error || formError}</p>
         )}
