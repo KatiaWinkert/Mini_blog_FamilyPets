@@ -8,7 +8,7 @@ import {
   where,
   QuerySnapshot,
 } from 'firebase/firestore'
-import { async } from '@firebase/util'
+
 
 export const useFetchDocuments = (docCollection, search = null, uid = null) => {
   const [documents, setDocuments] = useState(null)
@@ -35,7 +35,7 @@ export const useFetchDocuments = (docCollection, search = null, uid = null) => {
         if (search) {
           q = await query(
             collectionRef,
-            where('tags', 'array-contains', search),
+            where('tagsArrays', 'array-contains', search),
             orderBy('createdAt', 'desc')
           )
         } else {
