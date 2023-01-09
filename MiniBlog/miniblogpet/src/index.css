@@ -1,5 +1,5 @@
 body {
-  background-color: #f7fafa;
+  background-color: #e9e4bc54;
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -21,7 +21,7 @@ nav button {
   text-decoration: none;
   background-color: transparent;
   border: none;
-  color: #712B30;
+  color: #712b30;
   transition: 0.4s;
   font-size: 1em;
   cursor: pointer;
@@ -55,26 +55,30 @@ input,
 textarea {
   box-sizing: border-box;
   border: none;
-  border-bottom: 1px solid #FDc2BF;
+  border-bottom: 1px solid #fdc2bf;
   padding: 0.8em 0;
   background-color: transparent;
 }
 
 .btn {
-  background-color: #10B9C7;
+  background-color: #10b9c7;
   color: #fff;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 10px;
-  width: 120px;
-  font-weight: bold;
-  border: none;
-  padding: 10px 15px;
+  display: inline-block;
   font-size: 1em;
+  padding: 1em 2em;
+  margin-top: 50px;
+  margin-bottom: 60px;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 25px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: transform ease-in 0.1s, box-shadow ease-in 0.25s;
 }
 
 .btn.btn-dark {
-  background-color: #712B30;
+  background-color: #712b30;
   border-radius: 25px;
 }
 
@@ -82,13 +86,65 @@ textarea {
   background-color: transparent;
   border-radius: 25px;
   color: #000;
-  border: 1px solid #712B30;
+  border: 1px solid #712b30;
   padding: 7px 30px;
 }
 
-.btn:hover {
-  background-color: #3b8e97;
-  color: #fff;
+.btn::before,
+.btn::after {
+  position: absolute;
+  content: '';
+  display: none;
+  width: 140%;
+  height: 100%;
+  left: -20%;
+  z-index: -1000;
+  transition: all ease-in-out 0.5s;
+  background-repeat: no-repeat;
+}
+
+.btn::before {
+  top: -75%;
+  background-image: radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, transparet 20%, #ff0081 20%, transparent 30%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, transparet 10%, #ff0081 15%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%);
+  background-size: 10%, 10%, 20%, 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%,
+    15% 15%, 10% 10%, 18% 18%;
+}
+
+.btn::after {
+  bottom: -75%;
+  background-image: radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, transparet 10%, #ff0081 15%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%),
+    radial-gradient(circle, #ff0081 20%, transparent 20%);
+  background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
+}
+
+.btn:active{
+  transform: scale(0.9);
+  background-color: #e60074;
+  box-shadow: 0 2px 25px rgba(255, 0, 130, 0.2);
+
+}
+
+.btn.animate::before{
+  display: block;
+  animation: topBubbles ease-in-out 0.75s forwards;
+}
+
+.btn.animate::after{
+  display: block;
+  animation: bottomBubbles ease-in-out 0.75s forwards;
 }
 
 .btn.btn-outline:hover {
