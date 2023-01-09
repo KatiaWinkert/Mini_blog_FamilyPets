@@ -3,5 +3,6 @@ import { useMemo } from 'react'
 
 export function useQuery() {
   const { search } = useLocation()
-  return useMemo(() => URLSearchParams(search), [search])
+
+  return useMemo(() => new URLSearchParams(search), [search])
 }
