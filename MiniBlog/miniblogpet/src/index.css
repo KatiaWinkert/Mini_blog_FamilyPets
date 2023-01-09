@@ -1,5 +1,5 @@
 body {
-  background-color: #f6fcff;
+  background-color: #f7fafa;
   padding: 0;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
@@ -21,7 +21,7 @@ nav button {
   text-decoration: none;
   background-color: transparent;
   border: none;
-  color: #000;
+  color: #712B30;
   transition: 0.4s;
   font-size: 1em;
   cursor: pointer;
@@ -55,13 +55,13 @@ input,
 textarea {
   box-sizing: border-box;
   border: none;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #FDc2BF;
   padding: 0.8em 0;
   background-color: transparent;
 }
 
 .btn {
-  background-color: #467725;
+  background-color: #10B9C7;
   color: #fff;
   text-align: center;
   cursor: pointer;
@@ -74,20 +74,20 @@ textarea {
 }
 
 .btn.btn-dark {
-  background-color: #000;
-  border-radius: 0;
+  background-color: #712B30;
+  border-radius: 25px;
 }
 
 .btn.btn-outline {
   background-color: transparent;
-  border-radius: 0;
+  border-radius: 25px;
   color: #000;
-  border: 1px solid #000;
+  border: 1px solid #712B30;
   padding: 7px 30px;
 }
 
 .btn:hover {
-  background-color: #39c434;
+  background-color: #3b8e97;
   color: #fff;
 }
 
