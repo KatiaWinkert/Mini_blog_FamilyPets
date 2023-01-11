@@ -11,7 +11,7 @@ const Dashboard = () => {
   const { uid } = user.uid
 
   //post do usuario:
-  const { documents: posts, loading } = useFetchDocuments('posts', null, uid)
+  const { documents: posts} = useFetchDocuments('posts', null, uid)
 
   return (
     <div>
@@ -21,7 +21,7 @@ const Dashboard = () => {
         <div className={style.noposts}>
           <p>Não foram encontrados posts!</p>
           <Link to="/posts/create" className="btn">
-            Criar posts.
+            Criar o seu primeiro post.
           </Link>
         </div>
       ) : (
@@ -30,7 +30,7 @@ const Dashboard = () => {
         </div>
       )}
 
-      {posts && posts.map((post) => (<h3>{post.title}</h3>))}
+      {posts && posts.map((post) => <h3>{post.title}</h3>)}
     </div>
   )
 }
