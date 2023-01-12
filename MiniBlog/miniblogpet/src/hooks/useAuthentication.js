@@ -1,5 +1,3 @@
-import { db } from '../firebase/config'
-
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -31,7 +29,6 @@ export const useAuthentication = () => {
     checkiFisCancelled()
 
     setLoading(true)
-    setError(null)
 
     try {
       const { user } = await createUserWithEmailAndPassword(
@@ -42,8 +39,6 @@ export const useAuthentication = () => {
       await updateProfile(user, {
         displayName: data.displayName,
       })
-
-      setLoading(false)
 
       return user
     } catch (error) {
@@ -59,9 +54,10 @@ export const useAuthentication = () => {
       } else {
         systemErroMessage = 'Ocorreu um erro, por favor tente mais tarde.'
       }
-      setLoading(false)
+
       setError(systemErroMessage)
     }
+    setLoading(false)
   }
 
   //logout - sign out
@@ -81,6 +77,10 @@ export const useAuthentication = () => {
       await signInWithEmailAndPassword(auth, data.email, data.password)
       setLoading(false)
     } catch (error) {
+      console.log(error.message)
+      console.log(typeof error.message)
+      console.log(error.message.includes('user-not'))
+
       let systemErroMessage //(user- not - found = usuario nao existe)
 
       if (error.message.includes('user-not-found')) {
@@ -91,8 +91,10 @@ export const useAuthentication = () => {
         systemErroMessage = 'Ocorreu um erro, por favor tente mais tarde.'
       }
       setError(systemErroMessage)
-      setLoading(false)
+      console.log(systemErroMessage)
     }
+    console.log(error)
+    setLoading(false)
   }
 
   useEffect(() => {
