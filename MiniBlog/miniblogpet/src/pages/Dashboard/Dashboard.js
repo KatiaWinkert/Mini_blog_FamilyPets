@@ -29,7 +29,7 @@ const Dashboard = () => {
           <p>Tem posts!</p>
         </div>
       )}
-      <div>{posts && posts.map((post) => <h3>{post.title}</h3>)}</div>
+      {posts && posts.map((post) => <p key={post.id}>{post.title}</p>)}
     </div>
   )
 }
