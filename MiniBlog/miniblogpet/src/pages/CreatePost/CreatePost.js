@@ -74,7 +74,7 @@ const CreatePost = () => {
             type="text"
             name="text"
             required
-            placeholder="Pense num bom título..."
+            placeholder="Pense em um bom título..."
             onChange={(e) => setTitle(e.target.value)}
             value={title}
           />
